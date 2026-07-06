@@ -1,0 +1,57 @@
+[package]
+name    = "tortugas-desktop"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name       = "tortugas_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+# ─────────────────────────────────────────────────────────────
+# Dependencias principales
+# ─────────────────────────────────────────────────────────────
+
+[dependencies]
+# Tauri v2 — framework de app desktop
+tauri             = { version = "2", features = ["protocol-asset"] }
+tauri-plugin-dialog = "2"
+tauri-plugin-fs   = "2"
+
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+
+# Serialización
+serde      = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Exportación
+csv    = "1"
+chrono = { version = "0.4", features = ["serde"] }
+
+# Logging
+tracing            = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Error handling
+thiserror = "1"
+
+# ─────────────────────────────────────────────────────────────
+# Dependencias de build
+# ─────────────────────────────────────────────────────────────
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+# ─────────────────────────────────────────────────────────────
+# Perfiles de compilación
+# ─────────────────────────────────────────────────────────────
+
+[profile.release]
+opt-level     = 3      # Optimización máxima
+lto           = true   # Link-time optimization → binario más pequeño y rápido
+codegen-units = 1      # Un solo codegen unit → mejor LTO
+strip         = true   # Eliminar símbolos de debug → binario más pequeño
+panic         = "abort" # Sin unwinding → menor overhead
+
+[profile.dev]
+opt-level = 1          # Algo de optimización en dev para que ONNX no sea lentísimo

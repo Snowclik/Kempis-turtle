@@ -1,0 +1,34 @@
+{
+  "model_name": "yolo26n",
+  "dataset": "turtle-track-detector-2",
+  "version": "1.0.0",
+  "input_size": 640,
+  "num_classes": 3,
+  "class_names": [
+    "Fox",
+    "Track",
+    "Turtle"
+  ],
+  "output_shape": [
+    1,
+    300,
+    6
+  ],
+  "output_format": "xyxy_pixel",
+  "value_order": [
+    "x1",
+    "y1",
+    "x2",
+    "y2",
+    "confidence",
+    "class_id"
+  ],
+  "nms_required": false,
+  "max_detections": 300,
+  "trained_with": {
+    "gpu": "NVIDIA GeForce RTX 2050",
+    "vram": "4.0 GB",
+    "batch": 8,
+    "imgsz": 640
+  }
+}
