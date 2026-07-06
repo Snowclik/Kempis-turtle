@@ -110,43 +110,73 @@ Kempis-turtle/
 
 ## Instalación
 
-### Requisitos previos
+> [!IMPORTANT]
+> Este proyecto usa **Tauri**, que combina un frontend web (React + TypeScript) con un backend nativo en **Rust**. Por eso se necesitan instalar **dos entornos separados**: Node.js (para el frontend) y Rust (para el backend). `npm install` solo instala las dependencias de JavaScript — Rust debe instalarse aparte.
 
-| Requisito | Detalle |
-|---|---|
-| [Node.js](https://nodejs.org/) ≥ 18 | Runtime para el frontend |
-| [Rust](https://www.rust-lang.org/tools/install) | Compilación del backend Tauri |
-| [Tauri CLI](https://tauri.app/start/) | Herramienta de desarrollo |
-| Modelo `.onnx` entrenado | Ver sección de [entrenamiento](#entrenamiento-del-modelo) |
+### Paso 1 — Instalar Node.js
 
-### Pasos
+Descargar e instalar desde [nodejs.org](https://nodejs.org/) (versión LTS recomendada).
 
-1. **Clonar el repositorio:**
+Verificar instalación:
+```sh
+❯ node --version   # ej: v20.x.x
+❯ npm --version    # ej: 10.x.x
+```
 
-    ```sh
-    ❯ git clone https://github.com/Snowclik/Kempis-turtle.git
-    ❯ cd Kempis-turtle/apps/desktop
-    ```
+### Paso 2 — Instalar Rust
 
-2. **Instalar dependencias:**
+Descargar `rustup-init.exe` desde [rustup.rs](https://rustup.rs/) y ejecutarlo. La instalación por defecto está bien.
 
-    ```sh
-    ❯ npm install
-    ```
+Verificar instalación:
+```sh
+❯ rustc --version   # ej: rustc 1.79.0
+❯ cargo --version   # ej: cargo 1.79.0
+```
 
-3. **Colocar el modelo ONNX** en `apps/desktop/public/models/` y actualizar `model_meta.json` con sus parámetros.
+### Paso 3 — Instalar C++ Build Tools (Windows)
 
-4. **Ejecutar en modo desarrollo:**
+Rust en Windows necesita el compilador de C++ de Microsoft. Descargar [Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) e instalar con el componente:
 
-    ```sh
-    ❯ npm run tauri dev
-    ```
+> ✅ **"Desarrollo para escritorio con C++"**
 
-5. **Compilar para producción:**
+> [!NOTE]
+> Si ya tienes **Visual Studio** instalado (Community, Professional, etc.), con ese componente activado es suficiente. No necesitas instalarlo dos veces.
 
-    ```sh
-    ❯ npm run tauri build
-    ```
+### Paso 4 — Clonar el repositorio
+
+```sh
+❯ git clone https://github.com/Snowclik/Kempis-turtle.git
+❯ cd Kempis-turtle/apps/desktop
+```
+
+### Paso 5 — Instalar dependencias JavaScript
+
+```sh
+❯ npm install
+```
+
+### Paso 6 — Colocar el modelo ONNX
+
+Coloca tu archivo `.onnx` entrenado en:
+```
+apps/desktop/public/models/        ← archivo .onnx aquí
+apps/desktop/public/models/model_meta.json  ← metadatos del modelo
+```
+
+Ver la sección de [entrenamiento](#entrenamiento-del-modelo) para generar el modelo.
+
+### Paso 7 — Ejecutar
+
+```sh
+# Modo desarrollo
+❯ npm run tauri dev
+
+# Compilar instalador para Windows
+❯ npm run tauri build
+```
+
+> [!WARNING]
+> La **primera vez** que corres `npm run tauri dev`, Cargo compilará todas las dependencias de Rust desde cero. Esto puede tardar **entre 5 y 15 minutos** dependiendo de tu PC. Las ejecuciones siguientes son mucho más rápidas.
 
 <img src="https://raw.githubusercontent.com/eli64s/readme-ai/eb2a0b4778c633911303f3c00f87874f398b5180/docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
